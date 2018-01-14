@@ -17,13 +17,28 @@ mongoose.connect('mongodb://localhost/reddit-clone', { useMongoClient: true });
 mongoose.connection.on('error', console.error.bind(console, "MongoDB connection error: "));
 mongoose.set('debug', true);
 
+// The data structure for Post
+const Post = require('./models/post');
 
 //PUT method for creating a new post
 require('./controllers/posts.js')(app);
 
 // Home page
 app.get('/', (req, res) => {
-  res.render('home', {});
+  Post.find({}).then((posts) => {
+    res.render('home', { posts });
+  }).catch((err) => {
+    console.log(err.message);
+  });
+});
+
+// To view a specific post
+app.get('/posts/:id', (req, res) => {
+  Post.findById(req.params.id).then((post) => {
+    res.render('post-show', { post });
+  }).catch((err) => {
+  console.log(err.message);
+  });
 });
 
 // Create new post page

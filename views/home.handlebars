@@ -1,2 +1,14 @@
 <!-- home.handlebars -->
 <a href="/posts/new" class="btn btn-primary">New Post</a>
+<div class="row">
+  <div class="col-sm-8 col-sm-offset-2">
+    <ul>
+      {{#each posts}}
+        <li class="list-group-item">
+          <p><a href="/posts/{{this._id}}" class="lead">{{this.title}}</a></p>
+          <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+        </li>
+      {{/each}}
+    </ul>
+  </div>
+</div>
