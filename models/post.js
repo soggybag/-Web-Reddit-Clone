@@ -7,11 +7,12 @@ const PostSchema = new Schema({
   updatedAt:  { type: Date },
   title:      { type: String, required: true },
   url:        { type: String, required: true },
-  summary:    { type: String, required: true }
+  summary:    { type: String, required: true },
+  subreddit:  { type: String, required: true }
 });
 
-// Not working
-PostSchema.pre('save', (next) => {
+// Use a regular function, not lambda function (ES 6), or e
+PostSchema.pre('save', function(next) {
   // Setting the post creation and updated dates/times
   const now = new Date();
   this.updatedAt = now;

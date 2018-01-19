@@ -27,9 +27,17 @@ require('./controllers/posts.js')(app);
 app.get('/', (req, res) => {
   Post.find({}).then((posts) => {
     res.render('home', { posts });
+
   }).catch((err) => {
     console.log(err.message);
   });
+});
+
+// Create new post page
+// Needs to do a login check
+app.get("/posts/new", (req, res) => {
+  // res.send("Hello")
+  res.render('posts-new', {});
 });
 
 // To view a specific post
@@ -41,11 +49,7 @@ app.get('/posts/:id', (req, res) => {
   });
 });
 
-// Create new post page
-// Needs to do a login check
-app.get("/posts/new", (req, res) => {
-  res.render('posts-new', {});
-});
+
 
 //The port for this website
 app.listen(3001, () => {

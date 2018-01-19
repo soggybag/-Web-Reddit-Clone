@@ -7,6 +7,12 @@
         <li class="list-group-item">
           <p><a href="/posts/{{this._id}}" class="lead">{{this.title}}</a></p>
           <a href="{{this.url}}" target="_blank">{{this.url}}</a>
+          <div class="text-right">
+            <a >{{this.createdAt}}</a>
+          </div>
+          <div class="text-right">
+            <a href="/rc/{{this.subreddit}}">{{this.subreddit}}</a>
+          </div>
         </li>
       {{/each}}
     </ul>

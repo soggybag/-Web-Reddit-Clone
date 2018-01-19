@@ -7,10 +7,16 @@ module.exports = (app) => {
     // Instantiate instance of post models
     var post = new Post(req.body);
 
+    post.save().then((post) => {
+      res.redirect('/')
+    }).catch((err) => {
+      console.log(err.message)
+    })
+
     // Save instance of post model to db
-    post.save((err, post) => {
-      //Redirect to Home
-      return res.redirect('/');
-    });
+    // post.save((err, post) => {
+    //   //Redirect to Home
+    //   return res.redirect('/');
+    // });
   });
 };
