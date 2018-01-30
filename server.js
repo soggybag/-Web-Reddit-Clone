@@ -20,8 +20,15 @@ mongoose.set('debug', true);
 // The data structure for Post
 const Post = require('./models/post');
 
-//PUT method for creating a new post
+//GET and POST method for creating a new post
 require('./controllers/posts.js')(app);
+
+//GET and POST method for registering
+require('./controllers/auth.js')(app)
+
+//For comments
+require('./controllers/comments.js')(app);
+
 
 // Home page
 app.get('/', (req, res) => {
@@ -33,22 +40,23 @@ app.get('/', (req, res) => {
   });
 });
 
-// Create new post page
-// Needs to do a login check
-app.get("/posts/new", (req, res) => {
-  // res.send("Hello")
-  res.render('posts-new', {});
-});
-
 // To view a specific post
 app.get('/posts/:id', (req, res) => {
-  Post.findById(req.params.id).then((post) => {
+  Post.findById(req.params.id).populate('comments').then((post) => {
     res.render('post-show', { post });
   }).catch((err) => {
   console.log(err.message);
   });
 });
 
+// To view posts of a subreddit
+app.get('/rc/:subreddit', (req, res) => {
+  Post.find({ subreddit: req.params.subreddit }).then((posts) => {
+    res.render('home', { posts });
+  }).catch((err) => {
+    console.log(err.message);
+  });
+});
 
 
 //The port for this website

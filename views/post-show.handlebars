@@ -5,3 +5,16 @@
     <p>{{post.summary}}</p>
   </div>
 </div>
+
+
+<hr>
+<form action="/posts/{{post._id}}/comments" method="POST">
+  <textarea class='form-control' name="content" placeholder="Comment"></textarea>
+  <div class="pull-right">
+    <button type="submit">Save</button>
+  </div>
+</form>
+<hr>
+{{#each post.comments}}
+  {{this.content}}
+{{/each}}

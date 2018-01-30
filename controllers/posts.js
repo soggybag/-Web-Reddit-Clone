@@ -1,6 +1,13 @@
 const Post = require('../models/post');
 
 module.exports = (app) => {
+  // Create a new post page
+  // Needs to do a login check
+  app.get("/posts/new", (req, res) => {
+    // res.send("Hello")
+    res.render('posts-new', {});
+  });
+
   // The middleware route in between creating a new post and it being official submitted
   app.post('/posts/new', (req, res) => {
     console.log(req.body.title);
